@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose a Stylist</title>
+</head>
+<body>
+<h2>Choose a Stylist</h2>
+<ul>
+  <!-- Перебираємо список стилістів -->
+  <li th:each="stylist : ${stylists}">
+    <form th:action="@{/book-appointment}" method="post">
+      <!-- Приховане поле для передачі ідентифікатора стиліста -->
+      <input type="hidden" name="stylistId" th:value="${stylist.id}">
+      <!-- Відображення ім'я стиліста -->
+      <label th:text="${stylist.name}"></label><br>
+      <!-- Поле для вибору дати та часу зустрічі -->
+      <input type="datetime-local" name="dateTimeString" required><br>
+      <!-- Кнопка для бронювання зустрічі -->
+      <button type="submit">Book Appointment</button>
+    </form>
+  </li>
+</ul>
+</body>
+</html>
