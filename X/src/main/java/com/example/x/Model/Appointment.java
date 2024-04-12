@@ -50,5 +50,5 @@ public class Appointment {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
-// constructors, getters, and setters
+
 }

@@ -2,22 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-<<<<<<< HEAD
-  <title>Stylists</title>
-=======
   <title>Choose a Stylist</title>
->>>>>>> 8b622ee (Second commit)
 </head>
 <body>
 <h2>Choose a Stylist</h2>
 <ul>
-<<<<<<< HEAD
-  <li th:each="stylist : ${stylists}">
-    <form th:action="@{/book-appointment}" method="post">
-      <input type="hidden" name="stylistId" th:value="${stylist.id}">
-      <input type="hidden" name="clientId" value="1"> <!-- Assuming client ID is 1 -->
-      <input type="datetime-local" name="dateTimeString" required>
-=======
   <!-- Перебираємо список стилістів -->
   <li th:each="stylist : ${stylists}">
     <form th:action="@{/book-appointment}" method="post">
@@ -28,7 +17,6 @@
       <!-- Поле для вибору дати та часу зустрічі -->
       <input type="datetime-local" name="dateTimeString" required><br>
       <!-- Кнопка для бронювання зустрічі -->
->>>>>>> 8b622ee (Second commit)
       <button type="submit">Book Appointment</button>
     </form>
   </li>

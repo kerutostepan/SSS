@@ -3,10 +3,7 @@ package com.example.x.Controller;
 
 import com.example.x.Model.Client;
 import com.example.x.Repository.ClientRepository;
-<<<<<<< HEAD
-=======
 import jakarta.servlet.http.HttpSession;
->>>>>>> 8b622ee (Second commit)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +24,6 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-<<<<<<< HEAD
-    public String login(@ModelAttribute("client") Client client, Model model) {
-        Client existingClient = clientRepository.findByUsername(client.getUsername());
-        if (existingClient != null && existingClient.getPassword().equals(client.getPassword())) {
-            return "redirect:/services"; // Redirect to services page after login
-=======
     public String login(@ModelAttribute("client") Client client, HttpSession session, Model model) {
         Client existingClient = clientRepository.findByUsername(client.getUsername());
 
@@ -45,7 +36,6 @@ public class LoginController {
                 session.setAttribute("clientId", existingClient.getId());
                 return "redirect:/services"; // Перенаправлення на сторінку послуг для звичайного клієнта
             }
->>>>>>> 8b622ee (Second commit)
         } else {
             model.addAttribute("error", "Invalid username or password. Please try again.");
             return "login";

@@ -13,10 +13,7 @@ public class Client {
 
     private String username;
     private String password;
-<<<<<<< HEAD
-=======
     private boolean isAdmin;
->>>>>>> 8b622ee (Second commit)
 
     public Long getId() {
         return id;
@@ -41,8 +38,6 @@ public class Client {
     public void setPassword(String password) {
         this.password = password;
     }
-<<<<<<< HEAD
-=======
 
     public boolean isAdmin() {
         return isAdmin;
@@ -51,5 +46,4 @@ public class Client {
     public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
->>>>>>> 8b622ee (Second commit)
 }

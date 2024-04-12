@@ -11,5 +11,8 @@
     <a th:href="@{/services/__${service.id}__/stylists}" th:text="${service.name}"></a>
   </li>
 </ul>
+<form action="/logout" method="get">
+  <button type="submit">Logout</button>
+</form>
 </body>
 </html>

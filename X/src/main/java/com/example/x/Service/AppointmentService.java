@@ -25,11 +25,26 @@ public class AppointmentService {
         return appointments.isEmpty();
     }
 
+    public boolean canClientBookAppointment(Long clientId, LocalDateTime dateTime) {
+        LocalDateTime startDateTime = dateTime.minusMinutes(30);
+        LocalDateTime endDateTime = dateTime.plusMinutes(30);
+
+        List<Appointment> clientAppointments = appointmentRepository.findByClientIdAndDateTimeBetween(clientId, startDateTime, endDateTime);
+        return clientAppointments.isEmpty();
+    }
+
     public Appointment bookAppointment(Stylist stylist, Client client, LocalDateTime dateTime) {
-        Appointment appointment = new Appointment();
-        appointment.setStylist(stylist);
-        appointment.setClient(client);
-        appointment.setDateTime(dateTime);
-        return appointmentRepository.save(appointment);
+        if (isAppointmentAvailable(stylist, dateTime) && canClientBookAppointment(client.getId(), dateTime)) {
+            Appointment appointment = new Appointment();
+            appointment.setStylist(stylist);
+            appointment.setClient(client);
+            appointment.setDateTime(dateTime);
+            return appointmentRepository.save(appointment);
+        }
+        return null;
+    }
+
+    public void deleteAppointmentById(Long appointmentId) {
+        appointmentRepository.deleteById(appointmentId);
     }
 }

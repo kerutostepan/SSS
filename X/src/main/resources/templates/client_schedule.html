@@ -2,28 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Schedule</title>
+  <title>Client Schedule</title>
 </head>
 <body>
-<h2>Admin Schedule</h2>
+<h2>Client Schedule</h2>
 <table>
   <thead>
   <tr>
-    <th>Client</th>
     <th>Stylist</th>
     <th>Date and Time</th>
-    <th>Actions</th>
+    <th>Action</th>
   </tr>
   </thead>
   <tbody>
   <!-- Перебираємо список записів -->
-  <tr th:each="appointment : ${appointments}">
-    <td th:text="${appointment.client.username}"></td>
+  <tr th:each="appointment : ${clientAppointments}">
     <td th:text="${appointment.stylist.name}"></td>
     <td th:text="${appointment.dateTime}"></td>
     <td>
-      <form th:action="@{/admin/schedule/delete/{id}(id=${appointment.id})}" method="post" onsubmit="return confirm('Are you sure you want to delete this appointment?')">
-        <button type="submit">Delete</button>
+      <form th:action="@{/client/schedule/cancel/{id}(id=${appointment.id})}" method="post" onsubmit="return confirm('Are you sure you want to cancel this appointment?')">
+        <button type="submit">Cancel</button>
       </form>
     </td>
   </tr>

@@ -10,4 +10,8 @@ import java.util.Optional;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> findByStylistAndDateTimeBetween(Stylist stylist, LocalDateTime startDateTime, LocalDateTime endDateTime);
+
+    List<Appointment> findByClientId(Long clientId);
+
+    List<Appointment> findByClientIdAndDateTimeBetween(Long clientId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 }
