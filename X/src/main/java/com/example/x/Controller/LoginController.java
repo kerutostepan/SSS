@@ -28,13 +28,12 @@ public class LoginController {
         Client existingClient = clientRepository.findByUsername(client.getUsername());
 
         if (existingClient != null && existingClient.getPassword().equals(client.getPassword())) {
-            // Перевіряємо, чи це адміністратор
             if (existingClient.isAdmin()) {
                 session.setAttribute("isAdmin", true);
-                return "redirect:/admin/schedule"; // Перенаправлення на сторінку розкладу для адміністратора
+                return "redirect:/admin/schedule";
             } else {
                 session.setAttribute("clientId", existingClient.getId());
-                return "redirect:/services"; // Перенаправлення на сторінку послуг для звичайного клієнта
+                return "redirect:/services";
             }
         } else {
             model.addAttribute("error", "Invalid username or password. Please try again.");

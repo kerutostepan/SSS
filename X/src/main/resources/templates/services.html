@@ -1,18 +1,340 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beauty Salon</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      line-height: 1.6;
+    }
+
+    header {
+      background-image: url('https://images.unsplash.com/photo-1519424187720-db6d0fc5a3c9');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      padding: 150px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    nav {
+      background-color: #333;
+      padding: 15px 0;
+      text-align: center;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffc107;
+    }
+
+    .section {
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    h1, h2, h3 {
+      color: #333;
+    }
+
+    .services-container {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .service-card {
+      width: 300px;
+      margin: 20px;
+      background-color: #fff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    .service-card-content {
+      padding: 30px;
+    }
+
+    .service-card-content h3 {
+      color: #333;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .service-card-content p {
+      color: #666;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .btn-dark {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border-radius: 30px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      display: block;
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .btn-dark:hover {
+      background-color: #ffc107;
+      color: #333;
+    }
+
+    .team-slide {
+      text-align: center;
+    }
+
+    .team-member {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .team-member img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .team-member h4 {
+      color: #333;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .team-member p {
+      color: #666;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .slick-prev,
+    .slick-next {
+      font-size: 2rem;
+      color: #333;
+      z-index: 1;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      opacity: 0.5;
+    }
+
+    .slick-prev:hover,
+    .slick-next:hover {
+      color: #ffc107;
+      opacity: 1;
+    }
+
+    .slick-prev {
+      left: 20px;
+    }
+
+    .slick-next {
+      right: 20px;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 60px 0;
+    }
+
+    footer p {
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
-<h2>Our Services</h2>
-<ul>
-  <li th:each="service : ${services}">
-    <a th:href="@{/services/__${service.id}__/stylists}" th:text="${service.name}"></a>
-  </li>
-</ul>
-<form action="/logout" method="get">
-  <button type="submit">Logout</button>
-</form>
+<header>
+  <div class="container">
+    <h1 style="font-size: 4rem; margin-bottom: 20px;">Welcome to Our Beauty Salon</h1>
+    <p style="font-size: 1.8rem;">Discover a world of elegance and relaxation</p>
+  </div>
+</header>
+
+<nav>
+  <a href="#about">Про нас</a>
+  <a href="#services">Послуги</a>
+  <a href="#team">Команда</a>
+  <a href="#contact">Контакти</a>
+</nav>
+
+<section id="about" class="section" style="background-color: #ffc107; color: #333;">
+  <div class="container">
+    <h2>Про нас</h2>
+    <p>Ласкаво просимо до нашого салону краси, де ми пропонуємо широкий спектр послуг для вашої краси і комфорту. З нашими досвідченими стилістами і косметологами ви відкриєте для себе новий світ елегантності та розкіші.</p>
+    <p>Ми використовуємо тільки найкращі продукти та техніки, щоб зробити ваш вигляд досконалим.</p>
+  </div>
+</section>
+
+<section id="services" class="section" style="background-color: #fff; color: #333;">
+  <div class="container">
+    <h2>Послуги</h2>
+    <div class="services-container">
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="Service 1">
+        <div class="service-card-content">
+          <h3>Стрижка та укладка</h3>
+          <p>Наші професіонали забезпечать вам ідеальну стрижку та укладку, підкреслюючи вашу індивідуальність.</p>
+          <a href="/services/1/stylists" class="btn btn-dark">Дізнатися більше</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="Service 2">
+        <div class="service-card-content">
+          <h3>Макіяж</h3>
+          <p>Виберіть свій ідеальний образ з наших макіяжних послуг, які підкреслять вашу красу та чарівність.</p>
+          <a href="#" class="btn btn-dark">Дізнатися більше</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="Service 3">
+        <div class="service-card-content">
+          <h3>Педикюр та манікюр</h3>
+          <p>Дозвольте нашим майстрам доглянути за вашими руками та ногами, надаючи їм неперевершений догляд і красу.</p>
+          <a href="#" class="btn btn-dark">Дізнатися більше</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="team" class="section" style="background-color: #f8f9fa; color: #333;">
+  <div class="container">
+    <h2>Наша команда</h2>
+    <div class="team-slider">
+      <div class="team-slide">
+        <div class="team-member">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="Team Member">
+          <h4>Ім'я Прізвище</h4>
+          <p>Стайліст</p>
+        </div>
+      </div>
+      <div class="team-slide">
+        <div class="team-member">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="Team Member">
+          <h4>Ім'я Прізвище</h4>
+          <p>Візажист</p>
+        </div>
+      </div>
+      <div class="team-slide">
+        <div class="team-member">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="Team Member">
+          <h4>Ім'я Прізвище</h4>
+          <p>Майстер манікюру</p>
+        </div>
+      </div>
+      <!-- Додайте більше слайдів з іншими членами команди -->
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section" style="background-color: #333; color: #fff;">
+  <div class="container">
+    <h2>Зв'яжіться з нами</h2>
+    <p>Маєте запитання або бажаєте записатися? Звертайтеся до нас за допомогою контактної інформації нижче:</p>
+    <p>Телефон: (123) 456-7890</p>
+    <p>Email: info@example.com</p>
+    <p>Адреса: вул. Прикладна, 1, Місто, Країна</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; Beauty Salon - All rights reserved</p>
+  </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.team-slider').slick({
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      centerMode: true,
+      centerPadding: '0',
+      prevArrow: '<button type="button" class="slick-prev">&#8249;</button>',
+      nextArrow: '<button type="button" class="slick-next">&#8250;</button>',
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            dots: true
+          }
+        }
+      ]
+    });
+  });
+</script>
 </body>
 </html>

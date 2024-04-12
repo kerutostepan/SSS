@@ -2,24 +2,81 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Choose a Stylist</title>
+  <title>Choose a Stylist - Beauty Salon</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url('https://source.unsplash.com/random');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Roboto', sans-serif;
+      color: #ffffff;
+    }
+
+    .stylists-container {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      width: 600px;
+      text-align: center;
+    }
+
+    .stylists-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .stylist-item {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+
+    .stylist-label {
+      color: #00bcd4;
+      font-weight: bold;
+    }
+
+    .appointment-link {
+      background-color: #00bcd4;
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .appointment-link:hover {
+      background-color: #008ba3;
+    }
+  </style>
 </head>
 <body>
-<h2>Choose a Stylist</h2>
-<ul>
-  <!-- Перебираємо список стилістів -->
-  <li th:each="stylist : ${stylists}">
-    <form th:action="@{/book-appointment}" method="post">
-      <!-- Приховане поле для передачі ідентифікатора стиліста -->
-      <input type="hidden" name="stylistId" th:value="${stylist.id}">
-      <!-- Відображення ім'я стиліста -->
-      <label th:text="${stylist.name}"></label><br>
-      <!-- Поле для вибору дати та часу зустрічі -->
-      <input type="datetime-local" name="dateTimeString" required><br>
-      <!-- Кнопка для бронювання зустрічі -->
-      <button type="submit">Book Appointment</button>
-    </form>
-  </li>
-</ul>
+<div class="stylists-container">
+  <h2 class="stylists-title">Choose a Stylist</h2>
+  <ul>
+    <li class="stylist-item" th:each="stylist : ${stylists}">
+      <form th:action="@{/book-appointment}" method="post">
+        <input type="hidden" name="stylistId" th:value="${stylist.id}">
+        <label class="stylist-label" th:text="${stylist.name}"></label><br>
+        <input type="datetime-local" name="dateTimeString" required><br>
+        <button type="submit" class="appointment-link">Book Appointment</button>
+      </form>
+    </li>
+  </ul>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
