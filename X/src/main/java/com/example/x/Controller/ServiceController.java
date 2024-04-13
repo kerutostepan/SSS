@@ -2,8 +2,8 @@ package com.example.x.Controller;
 
 import com.example.x.Model.Service;
 import com.example.x.Model.Stylist;
-import com.example.x.Repository.ServiceRepository;
-import com.example.x.Repository.StylistRepository;
+import com.example.x.Service.ServiceService;
+import com.example.x.Service.StylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,21 +16,22 @@ import java.util.List;
 public class ServiceController {
 
     @Autowired
-    private ServiceRepository serviceRepository;
+    private StylistService stylistService;
 
     @Autowired
-    private StylistRepository stylistRepository;
+    private ServiceService serviceService;
 
     @GetMapping("/services")
     public String showServices(Model model) {
-        List<Service> services = serviceRepository.findAll();
+        List<Service> services = serviceService.getAllServices();
         model.addAttribute("services", services);
         return "services";
     }
 
     @GetMapping("/services/{serviceId}/stylists")
     public String showStylistsForService(@PathVariable Long serviceId, Model model) {
-        List<Stylist> stylists = stylistRepository.findAll(); // Замість findAll() можна використовувати власний метод для фільтрації
+        Service service = serviceService.getServiceById(serviceId);
+        List<Stylist> stylists = stylistService.getStylistsByService(service);
         model.addAttribute("stylists", stylists);
         return "stylists";
     }

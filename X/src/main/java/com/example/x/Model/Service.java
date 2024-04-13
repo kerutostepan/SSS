@@ -1,9 +1,8 @@
 package com.example.x.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Service {
@@ -14,6 +13,9 @@ public class Service {
 
     private String name;
     private String description;
+
+    @ManyToMany(mappedBy = "services")
+    private List<Stylist> stylists;
 
     public Long getId() {
         return id;
@@ -37,5 +39,13 @@ public class Service {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Stylist> getStylists() {
+        return stylists;
+    }
+
+    public void setStylists(List<Stylist> stylists) {
+        this.stylists = stylists;
     }
 }
